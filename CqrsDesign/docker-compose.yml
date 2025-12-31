@@ -1,0 +1,46 @@
+version: "3.9"
+services:
+  cqrs-api:
+    build:
+      context: .
+      dockerfile: ./Cqrs.Api/Dockerfile
+    container_name: cqrs.api
+    depends_on:
+      - postgres
+      - mongo
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://+:5000"
+      WriteConnection: "Host=postgres;Port=5432;Database=cqrs_write;Username=postgres;Password=postgres"
+      ReadConnection: "mongodb://root:secret@mongo:27017"
+    ports:
+      - "5002:5000"
+
+  postgres:
+    image: postgres:16
+    container_name: cqrs.postgres
+    restart: always
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "cqrs_write"
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mongo:
+    image: mongo:7
+    container_name: cqrs.mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "secret"
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  postgres_data:
+  mongo_data:

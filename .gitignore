@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/CQRS-design/.vs/CQRS-design
+/CqrsDesign/.vs/CqrsDesign/CopilotIndices/17.14.1561.44479
+/CqrsDesign/.vs/CqrsDesign/v17
+/CqrsDesign/.vs/CqrsDesign
+/CqrsDesign/Cqrs.Api/obj
+/CqrsDesign/Cqrs.Application/obj
+/CqrsDesign/Cqrs.Domain/bin/Debug/net8.0
+/CqrsDesign/Cqrs.Domain/obj
+/CqrsDesign/Cqrs.Infrastructure/bin/Debug/net8.0
+/CqrsDesign/Cqrs.Infrastructure/obj
