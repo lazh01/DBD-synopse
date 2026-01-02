@@ -1,5 +1,6 @@
 using Cqrs.Application.Commands;
 using Cqrs.Application.Queries;
+using Cqrs.Application.Services;
 using Cqrs.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
@@ -21,7 +22,7 @@ builder.Services.AddSingleton<ReadDb>();
 // Handlers (CQRS)
 builder.Services.AddScoped<CreateOrderHandler>();
 builder.Services.AddScoped<GetOrdersHandler>();
-
+builder.Services.AddHostedService<ReadModelUpdater>();
 var app = builder.Build();
 
 // Swagger middleware
