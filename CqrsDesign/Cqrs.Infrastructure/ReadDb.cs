@@ -1,4 +1,4 @@
-﻿using Cqrs.Domain.Entities;
+﻿using Cqrs.Infrastructure.ReadModels;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
@@ -8,10 +8,11 @@ public class ReadDb
 
     public ReadDb(IConfiguration config)
     {
-        var connectionString = config["ReadConnection"]; // now includes credentials
+        var connectionString = config["ReadConnection"];
         var client = new MongoClient(connectionString);
-        _db = client.GetDatabase("cqrs_read"); // your read DB
+        _db = client.GetDatabase("cqrs_read");
     }
 
-    public IMongoCollection<Order> Orders => _db.GetCollection<Order>("Orders");
+    public IMongoCollection<OrderReadModel> Orders =>
+        _db.GetCollection<OrderReadModel>("orders");
 }

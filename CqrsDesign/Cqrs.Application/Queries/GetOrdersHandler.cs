@@ -1,19 +1,21 @@
-﻿using Cqrs.Domain.Entities;
-using Cqrs.Infrastructure.Db;
+﻿using Cqrs.Infrastructure.ReadModels;
+using MongoDB.Driver;
 
 namespace Cqrs.Application.Queries;
-
-using MongoDB.Driver;
 
 public class GetOrdersHandler
 {
     private readonly ReadDb _read;
-    public GetOrdersHandler(ReadDb read) => _read = read;
 
-    public async Task<List<Order>> Handle()
+    public GetOrdersHandler(ReadDb read)
+    {
+        _read = read;
+    }
+
+    public async Task<List<OrderReadModel>> Handle()
     {
         return await _read.Orders
-            .Find(FilterDefinition<Order>.Empty)
+            .Find(FilterDefinition<OrderReadModel>.Empty)
             .ToListAsync();
     }
 }

@@ -2,6 +2,14 @@
 
 public class CreateOrderCommand
 {
-    public string Customer { get; set; } = "";
-    public decimal Amount { get; set; }
+    public Guid UserId { get; set; }
+
+    public List<CreateOrderLineDto> Lines { get; set; } = new();
+}
+
+public class CreateOrderLineDto
+{
+    public Guid ProductId { get; set; }
+
+    public int Quantity { get; set; }
 }

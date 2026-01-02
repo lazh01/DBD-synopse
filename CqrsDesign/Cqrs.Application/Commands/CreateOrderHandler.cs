@@ -1,5 +1,6 @@
 ﻿using Cqrs.Domain.Entities;
 using Cqrs.Infrastructure.Db;
+using Cqrs.Infrastructure.ReadModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cqrs.Application.Commands;
@@ -17,27 +18,66 @@ public class CreateOrderHandler
 
     public async Task<Guid> Handle(CreateOrderCommand cmd)
     {
-        var order = new Order { Customer = cmd.Customer, Amount = cmd.Amount };
+        var order = new Order
+        {
+            UserId = cmd.UserId,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        foreach (var line in cmd.Lines)
+        {
+            var product = await _write.Products.FindAsync(line.ProductId);
+            if (product == null) throw new Exception($"Product {line.ProductId} not found");
+
+            order.Lines.Add(new OrderLine
+            {
+                ProductId = product.Id,
+                Quantity = line.Quantity,
+                UnitPrice = product.UnitPrice
+            });
+        }
 
         _write.Orders.Add(order);
         await _write.SaveChangesAsync();
 
-        // Fire-and-forget of read db
-        // Vi forholder os simpelt da vi bare vil have noget der ville være representabelt af en cqrs struktur
-        // I et rigtigt system ville vi lave et system med service for read db og service for write db, samt kommunikation imellem.
-        // Derved ville der kunne være koordinering af opdateringer, og skabe en mere robust løsning.
-        _ = Task.Run(async () =>
+        // Populate read DB immediately (synchronously, safe)
+        var user = await _write.Users.FirstOrDefaultAsync(u => u.Id == order.UserId)
+                   ?? throw new Exception($"User {order.UserId} not found");
+
+        var readLines = new List<OrderLineReadModel>();
+        foreach (var line in order.Lines)
         {
-            try
+            var product = await _write.Products.FirstOrDefaultAsync(p => p.Id == line.ProductId)
+                          ?? throw new Exception($"Product {line.ProductId} not found");
+
+            readLines.Add(new OrderLineReadModel
             {
-                await _read.Orders.InsertOneAsync(order);
-            }
-            catch (Exception ex)
+                Id = line.Id,
+                Quantity = line.Quantity,
+                Product = new ProductReadModel
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    UnitPrice = product.UnitPrice
+                }
+            });
+        }
+
+        var readOrder = new OrderReadModel
+        {
+            Id = order.Id,
+            CreatedAt = order.CreatedAt,
+            User = new UserReadModel
             {
-                // Log fejl, retry hvis nødvendigt
-                Console.WriteLine($"Fejl ved opdatering af read DB: {ex.Message}");
-            }
-        });
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email
+            },
+            Lines = readLines,
+            TotalAmount = readLines.Sum(l => l.Quantity * l.Product.UnitPrice)
+        };
+
+        await _read.Orders.InsertOneAsync(readOrder);
 
         return order.Id;
     }
