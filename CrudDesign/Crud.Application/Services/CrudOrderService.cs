@@ -45,12 +45,31 @@ public class CrudOrderService
         return order.Id;
     }
 
-    public async Task<List<Order>> GetOrdersAsync()
+    public async Task<List<OrderReadDto>> GetOrdersAsync()
     {
         return await _db.Orders
             .Include(o => o.User)
             .Include(o => o.Lines)
                 .ThenInclude(l => l.Product)
+            .Select(o => new OrderReadDto
+            {
+                Id = o.Id,
+                CreatedAt = o.CreatedAt,
+                User = new UserReadDto
+                {
+                    Id = o.User.Id,
+                    Name = o.User.Name,
+                    Email = o.User.Email
+                },
+                Lines = o.Lines.Select(l => new OrderLineReadDto
+                {
+                    ProductId = l.ProductId,
+                    ProductName = l.Product.Name,
+                    Quantity = l.Quantity,
+                    UnitPrice = l.UnitPrice
+                }).ToList(),
+                TotalAmount = o.Lines.Sum(l => l.Quantity * l.UnitPrice)
+            })
             .ToListAsync();
     }
 }
