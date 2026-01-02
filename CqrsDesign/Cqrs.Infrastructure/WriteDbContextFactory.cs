@@ -16,7 +16,7 @@ namespace Cqrs.Infrastructure.Db
 
             var optionsBuilder = new DbContextOptionsBuilder<WriteDbContext>();
             var connectionString = configuration.GetConnectionString("WriteConnection")
-                                   ?? "Host=localhost;Port=5432;Database=cqrs_write;Username=postgres;Password=postgres";
+                                   ?? "Host=localhost;Port=5433;Database=cqrs_write;Username=postgres;Password=postgres";
 
             optionsBuilder.UseNpgsql(connectionString);
 

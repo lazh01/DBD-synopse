@@ -1,9 +1,7 @@
-using Cqrs.Application.Commands;
-using Cqrs.Application.Queries;
-using Cqrs.Infrastructure.Db;
+using Crud.Application.Services;
+using Crud.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Controllers + Swagger
@@ -11,20 +9,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Postgres (Write DB)
-builder.Services.AddDbContext<WriteDbContext>(o =>
-    o.UseNpgsql(builder.Configuration["WriteConnection"]));
+// Postgres (CRUD DB)
+builder.Services.AddDbContext<CrudDbContext>(options =>
+    options.UseNpgsql(builder.Configuration["WriteConnection"]));
 
-// Mongo (Read DB)
-builder.Services.AddSingleton<ReadDb>();
-
-// Handlers (CQRS)
-builder.Services.AddScoped<CreateOrderHandler>();
-builder.Services.AddScoped<GetOrdersHandler>();
+// Services
+builder.Services.AddScoped<CrudOrderService>();
 
 var app = builder.Build();
 
-// Swagger middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -34,7 +27,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 
-// Controllers
 app.MapControllers();
 
 app.Run();

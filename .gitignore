@@ -14,3 +14,10 @@
 /CqrsDesign/Cqrs.Infrastructure/bin/Debug/net8.0
 /CqrsDesign/Cqrs.Infrastructure/obj
 /CqrsDesign/.vs/ProjectEvaluation
+/CrudDesign/.vs
+/CrudDesign/Crud.Api/obj
+/CrudDesign/Crud.Application/obj
+/CrudDesign/Crud.Domain/bin/Debug/net8.0
+/CrudDesign/Crud.Domain/obj
+/CrudDesign/Crud.Infrastructure/bin/Debug/net8.0
+/CrudDesign/Crud.Infrastructure/obj
