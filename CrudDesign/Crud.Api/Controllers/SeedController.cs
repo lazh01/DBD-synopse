@@ -60,4 +60,20 @@ public class SeedController : ControllerBase
 
         return Ok(products);
     }
+
+    // GET /api/seed/users
+    [HttpGet("users")]
+    public async Task<IActionResult> GetUsers()
+    {
+        var users = await _write.Users.AsNoTracking().ToListAsync();
+        return Ok(users);
+    }
+
+    // GET /api/seed/products
+    [HttpGet("products")]
+    public async Task<IActionResult> GetProducts()
+    {
+        var products = await _write.Products.AsNoTracking().ToListAsync();
+        return Ok(products);
+    }
 }
