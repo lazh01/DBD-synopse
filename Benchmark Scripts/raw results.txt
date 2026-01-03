@@ -1,0 +1,187 @@
+﻿benchmark results
+cqrs read
+10
+  █ TOTAL RESULTS
+
+    checks_total.......: 10      0.249466/s
+    checks_succeeded...: 100.00% 10 out of 10
+    checks_failed......: 0.00%   0 out of 10
+
+    ✓ order created
+
+    HTTP
+    http_req_duration..............: avg=2.44ms min=0s med=2.1ms  max=24.39ms p(90)=3.92ms p(95)=4.93ms
+      { expected_response:true }...: avg=2.44ms min=0s med=2.1ms  max=24.39ms p(90)=3.92ms p(95)=4.93ms
+    http_req_failed................: 0.00%  0 out of 229524
+    http_reqs......................: 229524 5725.849859/s
+
+    EXECUTION
+    iteration_duration.............: avg=6.52ms min=0s med=6.74ms max=36.83ms p(90)=8.77ms p(95)=9.65ms
+    iterations.....................: 229512 5725.5505/s
+    vus............................: 50     min=0           max=50
+    vus_max........................: 50     min=50          max=50
+
+    NETWORK
+    data_received..................: 1.3 GB 32 MB/s
+    data_sent......................: 18 MB  458 kB/s
+100
+  █ TOTAL RESULTS
+
+    checks_total.......: 100     2.467007/s
+    checks_succeeded...: 100.00% 100 out of 100
+    checks_failed......: 0.00%   0 out of 100
+
+    ✓ order created
+
+    HTTP
+    http_req_duration..............: avg=14.3ms  min=1.62ms med=13.71ms max=43.92ms p(90)=19.06ms p(95)=21.09ms
+      { expected_response:true }...: avg=14.3ms  min=1.62ms med=13.71ms max=43.92ms p(90)=19.06ms p(95)=21.09ms
+    http_req_failed................: 0.00%  0 out of 101622
+    http_reqs......................: 101622 2507.021793/s
+
+    EXECUTION
+    iteration_duration.............: avg=14.75ms min=2.08ms med=14.15ms max=44.51ms p(90)=19.56ms p(95)=21.64ms
+    iterations.....................: 101520 2504.505445/s
+    vus............................: 50     min=0           max=50
+    vus_max........................: 50     min=50          max=50
+
+    NETWORK
+    data_received..................: 5.3 GB 131 MB/s
+    data_sent......................: 8.2 MB 201 kB/s
+1000
+  █ TOTAL RESULTS
+
+    checks_total.......: 1000    22.198739/s
+    checks_succeeded...: 100.00% 1000 out of 1000
+    checks_failed......: 0.00%   0 out of 1000
+
+    ✓ order created
+
+    HTTP
+    http_req_duration..............: avg=157.46ms min=2.07ms  med=174.15ms max=309.16ms p(90)=202.91ms p(95)=212.59ms
+      { expected_response:true }...: avg=157.46ms min=2.07ms  med=174.15ms max=309.16ms p(90)=202.91ms p(95)=212.59ms
+    http_req_failed................: 0.00%  0 out of 9546
+    http_reqs......................: 9546   211.909165/s
+
+    EXECUTION
+    iteration_duration.............: avg=175.74ms min=67.79ms med=177.59ms max=311.83ms p(90)=204.82ms p(95)=214.59ms
+    iterations.....................: 8544   189.666028/s
+    vus............................: 48     min=0         max=50
+    vus_max........................: 50     min=50        max=50
+
+    NETWORK
+    data_received..................: 4.4 GB 98 MB/s
+    data_sent......................: 1.0 MB 22 kB/s
+
+crud read
+10
+  █ TOTAL RESULTS
+
+    checks_total.......: 10      0.193943/s
+    checks_succeeded...: 100.00% 10 out of 10
+    checks_failed......: 0.00%   0 out of 10
+
+    ✓ order created
+
+    HTTP
+    http_req_duration..............: avg=240.91ms min=1.31ms med=10.76ms max=32.6s  p(90)=18.59ms p(95)=22.5ms
+      { expected_response:true }...: avg=240.91ms min=1.31ms med=10.76ms max=32.6s  p(90)=18.59ms p(95)=22.5ms
+    http_req_failed................: 0.00%  0 out of 8418
+    http_reqs......................: 8418   163.261452/s
+
+    EXECUTION
+    iteration_duration.............: avg=246.03ms min=1.52ms med=15.25ms max=32.61s p(90)=24.68ms p(95)=28.54ms
+    iterations.....................: 8406   163.02872/s
+    vus............................: 50     min=0         max=50
+    vus_max........................: 50     min=50        max=50
+
+    NETWORK
+    data_received..................: 36 MB  704 kB/s
+    data_sent......................: 676 kB 13 kB/s
+100
+  █ TOTAL RESULTS
+
+    checks_total.......: 100     1.418383/s
+    checks_succeeded...: 100.00% 100 out of 100
+    checks_failed......: 0.00%   0 out of 100
+
+    ✓ order created
+
+    HTTP
+    http_req_duration..............: avg=229.14ms min=2.6ms  med=24.96ms max=19.15s p(90)=38.52ms p(95)=43.49ms
+      { expected_response:true }...: avg=229.14ms min=2.6ms  med=24.96ms max=19.15s p(90)=38.52ms p(95)=43.49ms
+    http_req_failed................: 0.00%  0 out of 4685
+    http_reqs......................: 4685   66.451254/s
+
+    EXECUTION
+    iteration_duration.............: avg=236.49ms min=4.76ms med=27.13ms max=19.15s p(90)=40.99ms p(95)=47.08ms
+    iterations.....................: 4583   65.004503/s
+    vus............................: 50     min=0         max=50
+    vus_max........................: 50     min=50        max=50
+
+    NETWORK
+    data_received..................: 194 MB 2.8 MB/s
+    data_sent......................: 402 kB 5.7 kB/s
+1000
+  █ TOTAL RESULTS
+
+    checks_total.......: 1000    22.527741/s
+    checks_succeeded...: 100.00% 1000 out of 1000
+    checks_failed......: 0.00%   0 out of 1000
+
+    ✓ order created
+
+    HTTP
+    http_req_duration..............: avg=1.05s min=1.57ms  med=4.25ms   max=28.64s p(90)=223.46ms p(95)=315.95ms
+      { expected_response:true }...: avg=1.05s min=1.57ms  med=4.25ms   max=28.64s p(90)=223.46ms p(95)=315.95ms
+    http_req_failed................: 0.00%  0 out of 1422
+    http_reqs......................: 1422   32.034448/s
+
+    EXECUTION
+    iteration_duration.............: avg=3.57s min=88.32ms med=200.47ms max=28.64s p(90)=28.56s   p(95)=28.6s
+    iterations.....................: 420    9.461651/s
+    vus............................: 50     min=0         max=50
+    vus_max........................: 50     min=50        max=50
+
+    NETWORK
+    data_received..................: 185 MB 4.2 MB/s
+    data_sent......................: 359 kB 8.1 kB/s
+
+write results
+crud write
+  █ TOTAL RESULTS
+
+    HTTP
+    http_req_duration..............: avg=296.51ms min=2.59ms med=16.65ms max=26.84s p(90)=26.36ms p(95)=37.59ms
+      { expected_response:true }...: avg=296.51ms min=2.59ms med=16.65ms max=26.84s p(90)=26.36ms p(95)=37.59ms
+    http_req_failed................: 0.00%  0 out of 5758
+    http_reqs......................: 5758   166.676046/s
+
+    EXECUTION
+    iteration_duration.............: avg=299.86ms min=7.09ms med=19.91ms max=26.84s p(90)=30.22ms p(95)=41.2ms
+    iterations.....................: 5756   166.618152/s
+    vus............................: 50     min=50        max=50
+    vus_max........................: 50     min=50        max=50
+
+    NETWORK
+    data_received..................: 1.2 MB 35 kB/s
+    data_sent......................: 1.9 MB 54 kB/s
+
+cqrs write
+  █ TOTAL RESULTS
+
+    HTTP
+    http_req_duration..............: avg=553.85ms min=7.59ms med=36.09ms max=28.25s p(90)=80.33ms p(95)=123.84ms
+      { expected_response:true }...: avg=553.85ms min=7.59ms med=36.09ms max=28.25s p(90)=80.33ms p(95)=123.84ms
+    http_req_failed................: 0.00%  0 out of 3496
+    http_reqs......................: 3496   86.987161/s
+
+    EXECUTION
+    iteration_duration.............: avg=558.49ms min=7.59ms med=40.98ms max=28.25s p(90)=88.22ms p(95)=128.94ms
+    iterations.....................: 3494   86.937397/s
+    vus............................: 50     min=0         max=50
+    vus_max........................: 50     min=50        max=50
+
+    NETWORK
+    data_received..................: 732 kB 18 kB/s
+    data_sent......................: 1.1 MB 28 kB/s
